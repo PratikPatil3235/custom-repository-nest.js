@@ -17,10 +17,14 @@ export class UserRepository extends Repository<User> {
   }
 
   async getUserById(id: number): Promise<User | null> {
-    const user = await this.findOne({ where: { id } });
-    if (!user) {
-      throw new NotFoundException();
+    try {
+      const user = await this.findOne({ where: { id } });
+      if (!user) {
+        throw new NotFoundException();
+      }
+      return user;
+    } catch (err) {
+      throw new NotFoundException(`Somethingb went wrong please try again`);
     }
-    return user;
   }
 }
