@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
   UsePipes,
   ValidationPipe,
@@ -29,5 +30,13 @@ export class UserController {
   @UsePipes(new ValidationPipe())
   getUserById(@Param('id', ParseIntPipe) id: number): Promise<User | null> {
     return this.userService.getUserById(id);
+  }
+
+  @Patch(':id')
+  async updateUser(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: { name: string | null; age: number | null },
+  ) {
+    return this.userService.updateUser(id, body.name, body.age);
   }
 }

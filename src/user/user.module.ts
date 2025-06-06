@@ -10,10 +10,13 @@ import { UserRepository } from './repositories/user.repository';
   imports: [TypeOrmModule.forFeature([User])],
   exports: ['UserRepository'],
   controllers: [UserController],
-    providers: [ {
-        provide: 'UserRepository',
-        useFactory: (dataSourse: DataSource) => new UserRepository(dataSourse),
-        inject:[DataSource]
-  },UserService],
+  providers: [
+    {
+      provide: 'UserRepository',
+      useFactory: (dataSourse: DataSource) => new UserRepository(dataSourse),
+      inject: [DataSource],
+    },
+    UserService,
+  ],
 })
 export class UserModule {}

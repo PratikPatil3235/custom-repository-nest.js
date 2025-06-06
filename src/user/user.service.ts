@@ -19,4 +19,12 @@ export class UserService {
   async getUserById(id: number) {
     return await this.userRepository.getUserById(id);
   }
+
+  async updateUser(
+    id: number,
+    name: string | null,
+    age: number | null,
+  ): Promise<User | null> {
+    return await this.userRepository.updateUser(id, name, age);
+  }
 }

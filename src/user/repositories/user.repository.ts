@@ -27,4 +27,23 @@ export class UserRepository extends Repository<User> {
       throw new NotFoundException(`Somethingb went wrong please try again`);
     }
   }
+
+  async updateUser(
+    id: number,
+    name: string | null,
+    age: number | null,
+  ): Promise<User | null> {
+    try {
+      const user = await this.findOne({ where: { id } });
+      if (!user) {
+        throw new NotFoundException(`User with id ${id} Not Found`);
+      }
+      user.age = age ?? user.age;
+      user.name = name ?? user.name;
+
+      return this.save(user);
+    } catch (error) {
+      throw new NotFoundException(`Something went wrong please try again`);
+    }
+  }
 }
